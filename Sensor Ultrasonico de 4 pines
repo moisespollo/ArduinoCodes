@@ -19,5 +19,7 @@ void loop()
     delayMicroseconds(10);
     tiempo = pulseIn(pin_eco, HIGH);
     distancia= 0.017*tiempo;
-    Serial.println(distancia);
+    Serial.print("Distancia: ");
+    Serial.print(distancia);
+    Serial.println(" cm");
 }
