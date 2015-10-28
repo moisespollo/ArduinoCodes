@@ -1,0 +1,23 @@
+//Conectar el pin triger al pin 2 de Arduino y el pin echo al pin 3 de Arduino
+#define pin_trig 2
+#define pin_eco 3
+
+int distancia = 0, tiempo = 0;
+
+void setup()
+{
+    pinMode(pin_trig,OUTPUT);
+    pinMode(pin_eco,INPUT);
+    Serial.begin(9600);
+}
+
+void loop()
+{
+    digitalWrite(pin_trig,LOW); 
+    delayMicroseconds(5);
+    digitalWrite(pin_trig, HIGH);
+    delayMicroseconds(10);
+    tiempo = pulseIn(pin_eco, HIGH);
+    distancia= 0.017*tiempo;
+    Serial.println(distancia);
+}
