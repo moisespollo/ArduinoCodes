@@ -1,2 +1,3 @@
 # ArduinoCodes
-Algunos codigos de ejemplo de Arduino
+
+Codigos para distintos sensores y funcinoes de Arduino
