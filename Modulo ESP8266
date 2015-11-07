@@ -1,0 +1,62 @@
+#include <SoftwareSerial.h>
+#define SSID "RedWifi"
+#define PASS "ClaveWifi"
+
+int marcador = 0;
+char estado;
+
+SoftwareSerial wifi(3, 2); // RX | TX
+
+void setup()
+  {  
+    Serial.begin(9600);
+    wifi.begin(9600);
+    
+    do
+    {
+    wifi.print("AT");
+    delay(5000);
+    estado = wifi.read();
+    Serial.println(estado);
+    if(estado == 'OK')
+    {
+       Serial.println("RECEIVED: OK");
+       marcador = 1;
+    }
+    else Serial.println("error");
+    }
+    while(marcador == 0);
+}
+  
+
+void loop()
+  {  /*
+     if (wifi.available())
+         { char c = wifi.read() ;
+           Serial.print(c);
+           
+         }
+     if (Serial.available())
+         {  char c = Serial.read();
+            wifi.print(c);
+            
+         }*/
+   }
+   
+  boolean connectWiFi()
+  {
+  Serial.println("AT+CWMODE=1");
+  delay(2000);
+  String cmd="AT+CWJAP=\"";
+  cmd+=SSID;
+  cmd+="\",\"";
+  cmd+=PASS;
+  cmd+="\"";
+  Serial.println(cmd);
+  delay(5000);
+  if(Serial.find("OK")){
+    return true;
+  }else{
+    return false;
+  }
+}
