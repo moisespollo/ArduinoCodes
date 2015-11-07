@@ -12,13 +12,18 @@ void setup()
     Serial.begin(9600);
     wifi.begin(9600);
     
-    do
+  do
     {
-    wifi.print("AT");
-    delay(5000);
-    estado = wifi.read();
-    Serial.println(estado);
-    if(estado == 'OK')
+    wifi.print("AT\r\n");
+    delay(1000);
+    if(Serial.available())
+    {
+      delay(5);
+      estado[i] = Serial.read();
+      i = i + 1;
+    }
+
+    if(estado[0] == 'O')
     {
        Serial.println("RECEIVED: OK");
        marcador = 1;
