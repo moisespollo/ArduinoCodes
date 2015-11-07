@@ -1,9 +1,10 @@
 #include <SoftwareSerial.h>
-#define SSID "RedWifi"
-#define PASS "ClaveWifi"
+#define RED "BOTS4HACK"
+#define PASS "BOTS4HACK"
 
-int marcador = 0;
-char estado;
+int marcador = 0, i = 0;
+char estado[1];
+
 
 SoftwareSerial wifi(3, 2); // RX | TX
 
@@ -11,31 +12,12 @@ void setup()
   {  
     Serial.begin(9600);
     wifi.begin(9600);
-    
-  do
-    {
-    wifi.print("AT\r\n");
-    delay(1000);
-    if(Serial.available())
-    {
-      delay(5);
-      estado[i] = Serial.read();
-      i = i + 1;
-    }
-
-    if(estado[0] == 'O')
-    {
-       Serial.println("RECEIVED: OK");
-       marcador = 1;
-    }
-    else Serial.println("error");
-    }
-    while(marcador == 0);
-}
+    Conexion_inicial();
+  }
   
 
 void loop()
-  {  /*
+  {  
      if (wifi.available())
          { char c = wifi.read() ;
            Serial.print(c);
@@ -45,23 +27,24 @@ void loop()
          {  char c = Serial.read();
             wifi.print(c);
             
-         }*/
+         }
    }
    
-  boolean connectWiFi()
+void Conexion_inicial()
+{
+  Serial.print("AT");
+  delay(3000);
+  if(wifi.find("OK") == true)
   {
-  Serial.println("AT+CWMODE=1");
+    Serial.print("Ok, Esp8266");
+  
   delay(2000);
-  String cmd="AT+CWJAP=\"";
-  cmd+=SSID;
-  cmd+="\",\"";
-  cmd+=PASS;
-  cmd+="\"";
-  Serial.println(cmd);
-  delay(5000);
-  if(Serial.find("OK")){
-    return true;
-  }else{
-    return false;
+  Serial.print("AT+CWJAP=\"BOTS4HACK\",\"BOTS4HACK\"");
+  delay(4000);
+  if(wifi.find("OK") == true)
+  {
+    Serial.print("CONECTADO A BOTS4HACK");
+  }
   }
 }
+  
